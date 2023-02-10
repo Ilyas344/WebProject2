@@ -8,11 +8,12 @@ import org.springframework.stereotype.Service;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Optional;
+
 @Service
 public class RecipeServiceImpl implements RecipeService {
-    private static long idRecipe=1;
-    private Map<Long, Recipe> recipes =new LinkedHashMap<>();
-   private final ValidationService validationService;
+    private static long idRecipe = 1;
+    private Map<Long, Recipe> recipes = new LinkedHashMap<>();
+    private final ValidationService validationService;
 
     public RecipeServiceImpl(ValidationService validationService) {
         this.validationService = validationService;
@@ -20,9 +21,9 @@ public class RecipeServiceImpl implements RecipeService {
 
     @Override
     public Recipe add(Recipe recipe) {
-        if(!validationService.validateRecipe(recipe))
+        if (!validationService.validateRecipe(recipe))
             throw new RuntimeException(recipe.toString());
-        return recipes.put(idRecipe++,recipe);
+        return recipes.put(idRecipe++, recipe);
     }
 
     @Override

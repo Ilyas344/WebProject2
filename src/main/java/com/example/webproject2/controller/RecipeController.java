@@ -14,12 +14,14 @@ public class RecipeController {
     public RecipeController(RecipeService recipeService) {
         this.recipeService = recipeService;
     }
+
     @PostMapping("/")
-    public ResponseEntity<Recipe> add (@RequestBody Recipe recipe){
-       return ResponseEntity.ok(recipeService.add(recipe));
+    public ResponseEntity<Recipe> add(@RequestBody Recipe recipe) {
+        return ResponseEntity.ok(recipeService.add(recipe));
     }
+
     @PostMapping("/{id}")
-    public ResponseEntity<Recipe> get (@PathVariable long id){
+    public ResponseEntity<Recipe> get(@PathVariable long id) {
         return ResponseEntity.of(recipeService.getId(id));
     }
 
