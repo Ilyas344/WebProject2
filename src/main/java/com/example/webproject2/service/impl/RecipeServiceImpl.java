@@ -21,8 +21,9 @@ public class RecipeServiceImpl implements RecipeService {
 
     @Override
     public Recipe add(Recipe recipe) {
-        if (!validationService.validateRecipe(recipe))
+        if (!validationService.validateRecipe(recipe)) {
             throw new RuntimeException(recipe.toString());
+        }
         return recipes.put(idRecipe++, recipe);
     }
 
@@ -30,4 +31,27 @@ public class RecipeServiceImpl implements RecipeService {
     public Optional<Recipe> getId(Long id) {
         return Optional.ofNullable(recipes.get(id));
     }
+
+    @Override
+    public Recipe update(Long id, Recipe recipe) {
+        if (!validationService.validateRecipe(recipe)) {
+            throw new RuntimeException();
+        }
+        return recipes.replace(id, recipe);
+    }
+
+    @Override
+    public Recipe delete(Long id) {
+        if (recipes.containsKey(id)) {
+            throw new RuntimeException();
+        }
+        return recipes.remove(id);
+
+    }
+
+    @Override
+    public Map<Long, Recipe> getAll() {
+        return recipes;
+    }
+
 }

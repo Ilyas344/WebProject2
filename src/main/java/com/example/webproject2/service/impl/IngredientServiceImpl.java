@@ -1,6 +1,7 @@
 package com.example.webproject2.service.impl;
 
 import com.example.webproject2.model.Ingredient;
+import com.example.webproject2.model.Recipe;
 import com.example.webproject2.service.IngredientService;
 import com.example.webproject2.service.ValidationService;
 import org.springframework.stereotype.Service;
@@ -30,5 +31,26 @@ public class IngredientServiceImpl implements IngredientService {
     @Override
     public Optional<Ingredient> getId(Long id) {
         return Optional.ofNullable(ingredients.get(id));
+    }
+
+    @Override
+    public Ingredient update(Long id, Ingredient ingredient) {
+        if (!validationService.validateIngredient(ingredient)) {
+            throw new RuntimeException(ingredient.toString());
+        }
+        return ingredients.replace(id, ingredient);
+    }
+
+    @Override
+    public Ingredient delete(Long id) {
+        if (ingredients.containsKey(id)) {
+            throw new RuntimeException();
+        }
+        return ingredients.remove(id);
+    }
+
+    @Override
+    public Map<Long, Ingredient> getAll() {
+        return ingredients;
     }
 }

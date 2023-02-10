@@ -1,9 +1,12 @@
 package com.example.webproject2.controller;
 
+import com.example.webproject2.model.Ingredient;
 import com.example.webproject2.model.Recipe;
 import com.example.webproject2.service.RecipeService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 @RestController
 @RequestMapping("/recipe")
@@ -20,9 +23,23 @@ public class RecipeController {
         return ResponseEntity.ok(recipeService.add(recipe));
     }
 
-    @PostMapping("/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Recipe> get(@PathVariable long id) {
         return ResponseEntity.of(recipeService.getId(id));
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<Recipe> update(@PathVariable long id, @RequestBody Recipe recipe) {
+        return ResponseEntity.ok(recipeService.update(id, recipe));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Recipe> delete(@PathVariable long id) {
+        return ResponseEntity.ok(recipeService.delete(id));
+    }
+
+    @GetMapping("/")
+    public ResponseEntity<Map<Long, Recipe>> getAll() {
+        return ResponseEntity.ok(recipeService.getAll());
+    }
 }
