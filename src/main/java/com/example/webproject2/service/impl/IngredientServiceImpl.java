@@ -14,7 +14,7 @@ import java.util.Optional;
 public class IngredientServiceImpl implements IngredientService {
 
     private static long idIngredient = 1;
-    private Map<Long, Ingredient> ingredients = new LinkedHashMap<>();
+    private final Map<Long, Ingredient> ingredients = new LinkedHashMap<>();
     private final ValidationService validationService;
 
     public IngredientServiceImpl(ValidationService validationService) {
@@ -23,8 +23,9 @@ public class IngredientServiceImpl implements IngredientService {
 
     @Override
     public Ingredient add(Ingredient ingredient) {
-        if (!validationService.validateIngredient(ingredient))
+        if (!validationService.validateIngredient(ingredient)) {
             throw new RuntimeException(ingredient.toString());
+        }
         return ingredients.put(idIngredient++, ingredient);
     }
 

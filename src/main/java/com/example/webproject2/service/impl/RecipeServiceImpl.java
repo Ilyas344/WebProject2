@@ -12,7 +12,7 @@ import java.util.Optional;
 @Service
 public class RecipeServiceImpl implements RecipeService {
     private static long idRecipe = 1;
-    private Map<Long, Recipe> recipes = new LinkedHashMap<>();
+    private final Map<Long, Recipe> recipes = new LinkedHashMap<>();
     private final ValidationService validationService;
 
     public RecipeServiceImpl(ValidationService validationService) {

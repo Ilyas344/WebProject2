@@ -4,6 +4,8 @@ import com.example.webproject2.model.Ingredient;
 import com.example.webproject2.model.Recipe;
 import com.example.webproject2.service.RecipeService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,6 +27,11 @@ public class RecipeController {
     @Operation(
             summary = "Добавление рецепта"
     )
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Рецепт добавлен"),
+            @ApiResponse(responseCode = "404", description = "URL неверный или такого действия нет в веб-приложении"),
+            @ApiResponse(responseCode = "500", description = "Во время выполнения запроса произошла ошибка на сервере")}
+    )
     public ResponseEntity<Recipe> add(@RequestBody Recipe recipe) {
         return ResponseEntity.ok(recipeService.add(recipe));
     }
@@ -32,6 +39,11 @@ public class RecipeController {
     @GetMapping("/{id}")
     @Operation(
             summary = "Получение рецепта"
+    )
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Рецепт получен"),
+            @ApiResponse(responseCode = "404", description = "URL неверный или такого действия нет в веб-приложении"),
+            @ApiResponse(responseCode = "500", description = "Во время выполнения запроса произошла ошибка на сервере")}
     )
     public ResponseEntity<Recipe> get(@PathVariable long id) {
         return ResponseEntity.of(recipeService.getId(id));
@@ -41,6 +53,11 @@ public class RecipeController {
     @Operation(
             summary = "Обновление рецепта"
     )
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Рецепт обновлен"),
+            @ApiResponse(responseCode = "404", description = "URL неверный или такого действия нет в веб-приложении"),
+            @ApiResponse(responseCode = "500", description = "Во время выполнения запроса произошла ошибка на сервере")}
+    )
     public ResponseEntity<Recipe> update(@PathVariable long id, @RequestBody Recipe recipe) {
         return ResponseEntity.ok(recipeService.update(id, recipe));
     }
@@ -49,6 +66,11 @@ public class RecipeController {
     @Operation(
             summary = "Удаление рецепта"
     )
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Рецепт удален"),
+            @ApiResponse(responseCode = "404", description = "URL неверный или такого действия нет в веб-приложении"),
+            @ApiResponse(responseCode = "500", description = "Во время выполнения запроса произошла ошибка на сервере")}
+    )
     public ResponseEntity<Recipe> delete(@PathVariable long id) {
         return ResponseEntity.ok(recipeService.delete(id));
     }
@@ -56,6 +78,11 @@ public class RecipeController {
     @GetMapping("/")
     @Operation(
             summary = "Выдача всех рецептов"
+    )
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Все рецепты выданы"),
+            @ApiResponse(responseCode = "404", description = "URL неверный или такого действия нет в веб-приложении"),
+            @ApiResponse(responseCode = "500", description = "Во время выполнения запроса произошла ошибка на сервере")}
     )
     public ResponseEntity<Map<Long, Recipe>> getAll() {
         return ResponseEntity.ok(recipeService.getAll());
