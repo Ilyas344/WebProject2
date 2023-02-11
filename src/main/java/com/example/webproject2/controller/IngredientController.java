@@ -27,6 +27,7 @@ public class IngredientController {
     )
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Ингредиент добавлен"),
+            @ApiResponse(responseCode = "400", description = "Есть ошибка в параметрах запроса"),
             @ApiResponse(responseCode = "404", description = "URL неверный или такого действия нет в веб-приложении"),
             @ApiResponse(responseCode = "500", description = "Во время выполнения запроса произошла ошибка на сервере")}
     )
@@ -53,6 +54,7 @@ public class IngredientController {
     )
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Ингредиент обновлен"),
+            @ApiResponse(responseCode = "400", description = "Есть ошибка в параметрах запроса"),
             @ApiResponse(responseCode = "404", description = "URL неверный или такого действия нет в веб-приложении"),
             @ApiResponse(responseCode = "500", description = "Во время выполнения запроса произошла ошибка на сервере")}
     )
@@ -66,6 +68,7 @@ public class IngredientController {
     )
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Ингредиент удален"),
+            @ApiResponse(responseCode = "400", description = "Есть ошибка в параметрах запроса"),
             @ApiResponse(responseCode = "404", description = "URL неверный или такого действия нет в веб-приложении"),
             @ApiResponse(responseCode = "500", description = "Во время выполнения запроса произошла ошибка на сервере")}
     )
@@ -79,6 +82,7 @@ public class IngredientController {
     )
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Все ингредиенты выданы"),
+            @ApiResponse(responseCode = "400", description = "Есть ошибка в параметрах запроса"),
             @ApiResponse(responseCode = "404", description = "URL неверный или такого действия нет в веб-приложении"),
             @ApiResponse(responseCode = "500", description = "Во время выполнения запроса произошла ошибка на сервере")}
     )

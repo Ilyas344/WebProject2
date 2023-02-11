@@ -29,6 +29,7 @@ public class RecipeController {
     )
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Рецепт добавлен"),
+            @ApiResponse(responseCode = "400", description = "Есть ошибка в параметрах запроса"),
             @ApiResponse(responseCode = "404", description = "URL неверный или такого действия нет в веб-приложении"),
             @ApiResponse(responseCode = "500", description = "Во время выполнения запроса произошла ошибка на сервере")}
     )
@@ -42,6 +43,7 @@ public class RecipeController {
     )
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Рецепт получен"),
+            @ApiResponse(responseCode = "400", description = "Есть ошибка в параметрах запроса"),
             @ApiResponse(responseCode = "404", description = "URL неверный или такого действия нет в веб-приложении"),
             @ApiResponse(responseCode = "500", description = "Во время выполнения запроса произошла ошибка на сервере")}
     )
@@ -55,6 +57,7 @@ public class RecipeController {
     )
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Рецепт обновлен"),
+            @ApiResponse(responseCode = "400", description = "Есть ошибка в параметрах запроса"),
             @ApiResponse(responseCode = "404", description = "URL неверный или такого действия нет в веб-приложении"),
             @ApiResponse(responseCode = "500", description = "Во время выполнения запроса произошла ошибка на сервере")}
     )
@@ -68,6 +71,7 @@ public class RecipeController {
     )
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Рецепт удален"),
+            @ApiResponse(responseCode = "400", description = "Есть ошибка в параметрах запроса"),
             @ApiResponse(responseCode = "404", description = "URL неверный или такого действия нет в веб-приложении"),
             @ApiResponse(responseCode = "500", description = "Во время выполнения запроса произошла ошибка на сервере")}
     )
@@ -81,6 +85,7 @@ public class RecipeController {
     )
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Все рецепты выданы"),
+            @ApiResponse(responseCode = "400", description = "Есть ошибка в параметрах запроса"),
             @ApiResponse(responseCode = "404", description = "URL неверный или такого действия нет в веб-приложении"),
             @ApiResponse(responseCode = "500", description = "Во время выполнения запроса произошла ошибка на сервере")}
     )
