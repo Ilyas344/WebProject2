@@ -10,6 +10,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -76,7 +77,7 @@ public class RecipeServiceImpl implements RecipeService {
         }
 
     }
-
+    @PostConstruct
     private void readFile() {
         try {
             String json = fileService.readFile(recipeFileName);
