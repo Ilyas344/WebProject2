@@ -12,5 +12,5 @@ public class Ingredient {
     private String nameIng;
     private int count;
     private String measure;
-    private static String fileName ="Ingredient.json";
+
 }

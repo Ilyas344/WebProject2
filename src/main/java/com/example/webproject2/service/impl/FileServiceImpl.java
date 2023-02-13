@@ -2,7 +2,6 @@ package com.example.webproject2.service.impl;
 
 
 import com.example.webproject2.service.FileService;
-import lombok.Data;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +11,6 @@ import java.nio.file.Path;
 
 
 @Service
-@Data
 public class FileServiceImpl implements FileService {
     @Value("${path.to.file}")
     private String filePath;
@@ -37,7 +35,8 @@ public class FileServiceImpl implements FileService {
         try {
             return Files.readString(Path.of(filePath, fileName));
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
+           return null;
         }
     }
 

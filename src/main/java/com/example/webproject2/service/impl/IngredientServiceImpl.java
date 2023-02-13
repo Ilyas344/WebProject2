@@ -37,13 +37,14 @@ public class IngredientServiceImpl implements IngredientService {
         if (!validationService.validateIngredient(ingredient)) {
             throw new RuntimeException(ingredient.toString());
         }
+        ingredients.put(idIngredient++, ingredient);
         saveFile();
-        return ingredients.put(idIngredient++, ingredient);
+        return ingredient;
+
     }
 
     @Override
     public Optional<Ingredient> getId(Long id) {
-        readFile();
         return Optional.ofNullable(ingredients.get(id));
     }
 
@@ -52,8 +53,9 @@ public class IngredientServiceImpl implements IngredientService {
         if (!validationService.validateIngredient(ingredient)) {
             throw new RuntimeException(ingredient.toString());
         }
+        ingredients.replace(id, ingredient);
         saveFile();
-        return ingredients.replace(id, ingredient);
+        return ingredient;
     }
 
     @Override
@@ -66,7 +68,6 @@ public class IngredientServiceImpl implements IngredientService {
 
     @Override
     public Map<Long, Ingredient> getAll() {
-        readFile();
         return ingredients;
     }
 
@@ -75,7 +76,7 @@ public class IngredientServiceImpl implements IngredientService {
             String json = new ObjectMapper().writeValueAsString(ingredients);
             fileService.saveFile(json, ingredientName);
         } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
 
     }
@@ -86,7 +87,7 @@ public class IngredientServiceImpl implements IngredientService {
             ingredients = new ObjectMapper().readValue(json, new TypeReference<LinkedHashMap<Long, Ingredient>>() {
             });
         } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
 
     }

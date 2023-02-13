@@ -14,6 +14,6 @@ public class Recipe {
     private int cookTime;
     private List<Ingredient> ingredients;
     private List<String> steps;
-    private static String fileName="Recipe.json";
+
 
 }
