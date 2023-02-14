@@ -5,6 +5,8 @@ import com.example.webproject2.service.FileService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -36,8 +38,13 @@ public class FileServiceImpl implements FileService {
             return Files.readString(Path.of(filePath, fileName));
         } catch (IOException e) {
             e.printStackTrace();
-           return null;
+            return "";
         }
+    }
+
+    @Override
+    public File getFromFile(String fileName) {
+        return new File(filePath + "/" + fileName);
     }
 
 
