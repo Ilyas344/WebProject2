@@ -1,6 +1,7 @@
 package com.example.webproject2.controller;
 
 import com.example.webproject2.service.FileService;
+import com.example.webproject2.service.RecipeService;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.InputStreamResource;
@@ -22,8 +23,11 @@ public class FilesControllers {
     private String ingredientName;
     private final FileService fileService;
 
-    public FilesControllers(FileService fileService) {
+    private final RecipeService recipeService;
+
+    public FilesControllers(FileService fileService,RecipeService recipeService) {
         this.fileService = fileService;
+        this.recipeService = recipeService;
     }
 
     @GetMapping("/export")
@@ -41,9 +45,23 @@ public class FilesControllers {
             return ResponseEntity.noContent().build();
         }
     }
+    @GetMapping("/export/txt")
+    public ResponseEntity<InputStreamResource> downloadFilesTxt() throws IOException {
+        File file = recipeService.addRecipe();
+        if (file.exists()) {
 
-    @PostMapping(value = "/importIngredient", consumes = MediaType.MULTIPART_FORM_DATA_VALUE,
-            name = "ingredient.json"
+            InputStreamResource resource = new InputStreamResource(new FileInputStream(file));
+            return ResponseEntity.ok()
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .contentLength(file.length())
+                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"Recipe.txt\"")
+                    .body(resource);
+        } else {
+            return ResponseEntity.noContent().build();
+        }
+    }
+
+    @PostMapping(value = "/importIngredient", consumes = MediaType.MULTIPART_FORM_DATA_VALUE
     )
     public ResponseEntity<Void> uploadFilesIngredient(@RequestParam MultipartFile files) {
         fileService.clearFile(ingredientName);
@@ -58,8 +76,8 @@ public class FilesControllers {
 
     }
 
-    @PostMapping(value = "/importRecipe", consumes = MediaType.MULTIPART_FORM_DATA_VALUE,
-            name = "recipe.json"
+
+    @PostMapping(value = "/importRecipe", consumes = MediaType.MULTIPART_FORM_DATA_VALUE
     )
     public ResponseEntity<Void> uploadFilesRecipe(@RequestParam MultipartFile files) {
         fileService.clearFile(recipeFileName);

@@ -15,5 +15,9 @@ public class Recipe {
     private List<Ingredient> ingredients;
     private List<String> steps;
 
-
+    @Override
+    public String toString() {
+        return name + "\n" +
+                "Время приготовления" + cookTime;
+    }
 }

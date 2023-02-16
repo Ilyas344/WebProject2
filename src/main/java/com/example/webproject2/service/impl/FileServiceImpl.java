@@ -16,6 +16,8 @@ import java.nio.file.Path;
 public class FileServiceImpl implements FileService {
     @Value("${path.to.file}")
     private String filePath;
+    @Value("${name.of.recipe.file.txt}")
+    private String recipeFileNameTxt;
 
 
     @Override
@@ -58,5 +60,9 @@ public class FileServiceImpl implements FileService {
             e.printStackTrace();
             return false;
         }
+    }@Override
+    public Path saveRecipeTxt(String text, Path path) throws IOException {
+        clearFile(recipeFileNameTxt);
+        return Files.writeString(path,text);
     }
 }

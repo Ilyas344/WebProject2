@@ -13,4 +13,10 @@ public class Ingredient {
     private int count;
     private String measure;
 
+    @Override
+    public String toString() {
+        return nameIng +
+                " - " + count +
+                " " + measure;
+    }
 }

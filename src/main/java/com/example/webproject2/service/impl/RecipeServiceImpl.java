@@ -1,5 +1,6 @@
 package com.example.webproject2.service.impl;
 
+import com.example.webproject2.model.Ingredient;
 import com.example.webproject2.model.Recipe;
 import com.example.webproject2.service.FileService;
 import com.example.webproject2.service.RecipeService;
@@ -7,14 +8,18 @@ import com.example.webproject2.service.ValidationService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
-import java.nio.file.Files;
+import java.io.*;
+import java.nio.file.Path;
 import java.util.LinkedHashMap;
+
 import java.util.Map;
 import java.util.Optional;
+
 
 @Service
 public class RecipeServiceImpl implements RecipeService {
@@ -24,6 +29,10 @@ public class RecipeServiceImpl implements RecipeService {
     private final ValidationService validationService;
     @Value("${name.of.recipe.file}")
     private String recipeFileName;
+    @Value("${name.of.recipe.file.txt}")
+    private String recipeFileNameTxt;
+    @Value("${path.to.file}")
+    private String recipePath;
 
     public RecipeServiceImpl(FileService fileService, ValidationService validationService) {
         this.fileService = fileService;
@@ -78,6 +87,13 @@ public class RecipeServiceImpl implements RecipeService {
         }
 
     }
+
+    @Override
+    public File addRecipe() throws IOException {
+        return fileService.saveRecipeTxt(recipeToString(), Path.of(recipePath, recipeFileNameTxt)).toFile();
+    }
+
+
     @PostConstruct
     private void readFile() {
         try {
@@ -88,6 +104,24 @@ public class RecipeServiceImpl implements RecipeService {
             e.printStackTrace();
         }
 
+    }
+
+    private String recipeToString() {
+        StringBuilder sb = new StringBuilder();
+        for (Recipe recipe : recipes.values()) {
+            sb.append("\n").append(recipe.toString()).append("\n");
+            sb.append("\nИнгредиенты\n");
+            int i = 1;
+            for (Ingredient ingredient : recipe.getIngredients()) {
+                sb.append(i++).append(ingredient.toString()).append("\n");
+            }
+            i = 1;
+            sb.append("\nШаг приготовления\n");
+            for (String step : recipe.getSteps()) {
+                sb.append(i++).append(step).append("\n");
+            }
+        }
+        return sb.append("\n").toString();
     }
 }
 
